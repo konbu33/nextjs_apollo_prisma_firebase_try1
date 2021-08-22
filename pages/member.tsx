@@ -1,0 +1,89 @@
+import { Form, Field } from 'react-final-form'
+import Link from 'next/link'
+
+function InterestPicker() {
+  return (
+    <>
+      <div>InterestPicker</div>
+    </>
+  )
+}
+
+function onSubmit() {
+  console.log(' onSubmit: ')
+  return
+}
+
+const MyForm = () => (
+  <Form
+    onSubmit={onSubmit}
+    // validate={validate}
+    render={({ handleSubmit }) => (
+      <form onSubmit={handleSubmit}>
+
+        <h2>UserName</h2>
+        <label>userName</label>
+        <Field name="userName" component="textarea" />
+
+        <Field 
+          name="e-mail" 
+          render={ ({input}) => (
+            <div>
+              <label>e-mail</label>
+              <input type="checkbox" {...input} />
+            </div>
+          )
+          }/>
+
+        <h2>Simple Default Input</h2>
+        <div>
+          <label>First Name</label>
+          <Field name="firstName" component="input" placeholder="First Name" />
+        </div>
+
+        <h2>An Arbitrary Reusable Input Component</h2>
+        <div>
+          <label>Interests</label>
+          <Field name="interests" component={InterestPicker} />
+        </div>
+
+        <h2>Render Function</h2>
+        <Field
+          name="bio"
+          render={({ input, meta }) => (
+            <div>
+              <label>Bio</label>
+              <textarea {...input} />
+              {meta.touched && meta.error && <span>{meta.error}</span>}
+            </div>
+          )}
+        />
+
+        <h2>Render Function as Children</h2>
+        <Field name="phone">
+          {({ input, meta }) => (
+            <div>
+              <label>Phone</label>
+              <input type="text" {...input} placeholder="Phone" />
+              {meta.touched && meta.error && <span>{meta.error}</span>}
+            </div>
+          )}
+        </Field>
+
+        <button type="submit">Submit</button>
+      </form>
+    )}
+  />
+)
+
+function member() {
+  return (
+    <>
+      <h1>Member</h1>
+      <Link href="/"><a>Top</a></Link>
+      <MyForm/>
+    </>
+  )
+}
+
+export default member
